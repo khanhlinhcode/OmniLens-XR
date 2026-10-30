@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "modelId": "omnilens-generated-cube-v1",
+  "displayName": "OmniLens Generated Cube",
+  "bundleFileName": "generated-cube.mesh.json",
+  "bundleSha256": "da7b5c2ff88f9e365474d919e05a9b1ed9e8c4ed0ba60376db6bc6ae4533ee77",
+  "assetId": "generated-cube-v1",
+  "defaultPartId": "body",
+  "unit": "meter",
+  "unitScale": 1.0,
+  "maxBundleBytes": 4096,
+  "maxVertices": 64,
+  "maxTriangles": 64,
+  "maxTextureBytes": 0,
+  "license": {
+    "licenseId": "LicenseRef-OmniLens-Generated",
+    "sourceUri": "generated://omnilens/s08/generated-cube-v1",
+    "attribution": "Generated in-repository for OmniLens XR S08",
+    "redistributionAllowed": true
+  },
+  "parts": [
+    {"partId": "root", "parentPartId": "", "targetName": "GeneratedCubeRoot"},
+    {"partId": "body", "parentPartId": "root", "targetName": "GeneratedCubeMesh"},
+    {"partId": "marker-left", "parentPartId": "body", "targetName": "MarkerLeft"},
+    {"partId": "marker-right", "parentPartId": "body", "targetName": "MarkerRight"}
+  ],
+  "animations": [
+    {"animationName": "idle", "targetPartId": "root"}
+  ],
+  "lods": [
+    {"level": 0, "maxDistanceMeters": 3.0, "vertexBudget": 64},
+    {"level": 1, "maxDistanceMeters": 8.0, "vertexBudget": 32}
+  ]
+}

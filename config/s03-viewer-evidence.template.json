@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "viewer": {
+    "availability": "unavailable",
+    "brand_model": null,
+    "tray_dimensions_mm": {
+      "width": null,
+      "height": null,
+      "depth": null,
+      "max_phone_thickness": null
+    },
+    "iphone11_fit": "not_run",
+    "camera_obstruction": "not_run",
+    "trigger": {
+      "type": "unknown",
+      "result": "not_run"
+    },
+    "lens": {
+      "controls_recorded": false,
+      "ipd_adjustable": null,
+      "focus_adjustable": null
+    },
+    "qr_profile": {
+      "available": false,
+      "source": null
+    }
+  },
+  "dwell": {
+    "selection": "not_run",
+    "cancellation": "not_run",
+    "duplicate_suppression": "not_run",
+    "recenter": "not_run",
+    "progress_readability": "not_run",
+    "reduced_motion_review": "not_run"
+  },
+  "comfort": {
+    "duration_seconds": 0,
+    "continuous": false,
+    "stopped_early": false,
+    "stop_reason": null,
+    "temperature_method": "none",
+    "checkpoints": []
+  },
+  "gate": {
+    "claimed_result": "blocked",
+    "fallback_2d_retained": true
+  }
+}
+

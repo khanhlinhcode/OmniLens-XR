@@ -1,6 +1,7 @@
 {
     "name": "CardboardSamples",
     "references": [
+        "OmniLensXR.Runtime",
         "Google.XR.Cardboard",
         "Unity.InputSystem",
         "Unity.XR.Management"

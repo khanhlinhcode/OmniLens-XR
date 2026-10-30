@@ -1,0 +1,7 @@
+{"event":"startup","time":4.628,"details":"camera_authorized=false,has_device_params=true,xr_loader_active=true"}
+{"event":"frame_window","time":14.919,"details":"samples=300,avg_ms=34.665,p95_ms=33.563,min_ms=16.742,max_ms=449.661"}
+{"event":"pose_checkpoint","time":19.017,"details":"index=1,x=0.219,y=-0.104,z=0.059,w=0.968,pitch=25.8,yaw=-11.2,roll=4.4"}
+{"event":"recenter_hold_released","time":21.950,"details":"duration_seconds=1.333,next_checkpoint_is_post_recenter=true"}
+{"event":"pose_checkpoint","time":24.383,"details":"index=2,x=0.072,y=-0.036,z=0.061,w=0.995,pitch=8.5,yaw=-3.6,roll=6.7"}
+{"event":"frame_window","time":24.917,"details":"samples=300,avg_ms=33.332,p95_ms=33.519,min_ms=30.432,max_ms=36.238"}
+{"event":"frame_window","time":34.916,"details":"samples=300,avg_ms=33.332,p95_ms=33.517,min_ms=33.024,max_ms=33.670"}

@@ -16,6 +16,7 @@ namespace OmniLensXR.S02
     {
         private const int FrameWindowSize = 300;
         private const int MaximumCheckpoints = 21;
+        private const double StatePollIntervalSeconds = 1.0;
         private const string LogPrefix = "[S02_PROBE] ";
 
         private readonly List<float> _frameTimesMilliseconds = new List<float>(
@@ -27,6 +28,7 @@ namespace OmniLensXR.S02
         private bool _hasDeviceParams;
         private bool _touchTracking;
         private double _touchStartedAt;
+        private double _nextStatePollAt;
 
         private void Awake()
         {
@@ -47,6 +49,7 @@ namespace OmniLensXR.S02
 
             _cameraAuthorized = CameraAuthorization();
             _hasDeviceParams = Api.HasDeviceParams();
+            _nextStatePollAt = Time.realtimeSinceStartupAsDouble + StatePollIntervalSeconds;
             Emit("startup", RuntimeStateDetails());
         }
 
@@ -64,50 +67,13 @@ namespace OmniLensXR.S02
                 _frameTimesMilliseconds.Clear();
             }
 
-            bool triggerPressed = Api.IsTriggerPressed;
+            ProcessTouchGestureWithoutConsumingCardboardInput();
 
-            if (triggerPressed && _checkpointCount < MaximumCheckpoints)
+            double now = Time.realtimeSinceStartupAsDouble;
+            if (now >= _nextStatePollAt)
             {
-                _checkpointCount += 1;
-                Quaternion pose = InputTracking.GetLocalRotation(XRNode.CenterEye);
-                Vector3 euler = pose.eulerAngles;
-                Emit(
-                    "pose_checkpoint",
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        "index={0},x={1:F3},y={2:F3},z={3:F3},w={4:F3},pitch={5:F1},yaw={6:F1},roll={7:F1}",
-                        _checkpointCount,
-                        pose.x,
-                        pose.y,
-                        pose.z,
-                        pose.w,
-                        NormalizeAngle(euler.x),
-                        NormalizeAngle(euler.y),
-                        NormalizeAngle(euler.z)
-                    )
-                );
-            }
-
-            DetectReleasedHoldWithoutConsumingCardboardInput();
-
-            bool cameraAuthorized = CameraAuthorization();
-            if (cameraAuthorized != _cameraAuthorized)
-            {
-                _cameraAuthorized = cameraAuthorized;
-                Emit(
-                    "camera_authorization_changed",
-                    "camera_authorized=" + cameraAuthorized.ToString().ToLowerInvariant()
-                );
-            }
-
-            bool hasDeviceParams = Api.HasDeviceParams();
-            if (hasDeviceParams != _hasDeviceParams)
-            {
-                _hasDeviceParams = hasDeviceParams;
-                Emit(
-                    "device_params_changed",
-                    "has_device_params=" + hasDeviceParams.ToString().ToLowerInvariant()
-                );
+                _nextStatePollAt = now + StatePollIntervalSeconds;
+                PollRuntimeState();
             }
         }
 
@@ -198,6 +164,31 @@ namespace OmniLensXR.S02
             return Application.HasUserAuthorization(UserAuthorization.WebCam);
         }
 
+        private void PollRuntimeState()
+        {
+            bool cameraAuthorized = CameraAuthorization();
+            if (cameraAuthorized != _cameraAuthorized)
+            {
+                _cameraAuthorized = cameraAuthorized;
+                Emit(
+                    "camera_authorization_changed",
+                    "camera_authorized=" + cameraAuthorized.ToString().ToLowerInvariant()
+                );
+            }
+
+            if (_hasDeviceParams)
+            {
+                return;
+            }
+
+            bool hasDeviceParams = Api.HasDeviceParams();
+            if (hasDeviceParams)
+            {
+                _hasDeviceParams = true;
+                Emit("device_params_changed", "has_device_params=true");
+            }
+        }
+
         private static string RuntimeStateDetails()
         {
             bool xrRunning =
@@ -213,7 +204,12 @@ namespace OmniLensXR.S02
             );
         }
 
-        private void DetectReleasedHoldWithoutConsumingCardboardInput()
+        public static bool IsCheckpointTap(double durationSeconds, bool canceled)
+        {
+            return !canceled && durationSeconds >= 0.0 && durationSeconds < 1.0;
+        }
+
+        private void ProcessTouchGestureWithoutConsumingCardboardInput()
         {
             Touchscreen touchscreen = Touchscreen.current;
             if (touchscreen == null)
@@ -223,8 +219,19 @@ namespace OmniLensXR.S02
             }
 
             InputSystemTouchPhase phase = touchscreen.primaryTouch.phase.ReadValue();
-            if (phase == InputSystemTouchPhase.Began)
+            if (phase == InputSystemTouchPhase.Began && !_touchTracking)
             {
+                Vector2Int position = Vector2Int.RoundToInt(
+                    touchscreen.primaryTouch.position.ReadValue()
+                );
+                if (
+                    Widget.CloseButtonRect.Contains(position)
+                    || Widget.GearButtonRect.Contains(position)
+                )
+                {
+                    return;
+                }
+
                 _touchTracking = true;
                 _touchStartedAt = Time.realtimeSinceStartupAsDouble;
                 return;
@@ -237,7 +244,12 @@ namespace OmniLensXR.S02
             {
                 double duration = Time.realtimeSinceStartupAsDouble - _touchStartedAt;
                 _touchTracking = false;
-                if (duration >= 1.0)
+                bool canceled = phase == InputSystemTouchPhase.Canceled;
+                if (IsCheckpointTap(duration, canceled))
+                {
+                    RecordPoseCheckpoint();
+                }
+                else if (!canceled && duration >= 1.0)
                 {
                     Emit(
                         "recenter_hold_released",
@@ -249,6 +261,33 @@ namespace OmniLensXR.S02
                     );
                 }
             }
+        }
+
+        private void RecordPoseCheckpoint()
+        {
+            if (_checkpointCount >= MaximumCheckpoints)
+            {
+                return;
+            }
+
+            _checkpointCount += 1;
+            Quaternion pose = InputTracking.GetLocalRotation(XRNode.CenterEye);
+            Vector3 euler = pose.eulerAngles;
+            Emit(
+                "pose_checkpoint",
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    "index={0},x={1:F3},y={2:F3},z={3:F3},w={4:F3},pitch={5:F1},yaw={6:F1},roll={7:F1}",
+                    _checkpointCount,
+                    pose.x,
+                    pose.y,
+                    pose.z,
+                    pose.w,
+                    NormalizeAngle(euler.x),
+                    NormalizeAngle(euler.y),
+                    NormalizeAngle(euler.z)
+                )
+            );
         }
 
         private static float NormalizeAngle(float angle)

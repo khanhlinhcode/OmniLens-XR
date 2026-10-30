@@ -1,0 +1,3 @@
+{"event":"startup","time":4.776,"details":"probe_limit_minutes=21,raw_media=false"}
+{"event":"comfort_checkpoint","time":4.779,"details":"minute=0,thermal_state=fair"}
+{"event":"frame_window","time":15.577,"details":"elapsed_seconds=10.798,samples=300,avg_ms=36.776,p50_ms=33.334,p95_ms=33.486,min_ms=33.040,max_ms=1049.801,thermal_state=fair"}

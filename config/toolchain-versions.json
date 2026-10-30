@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "decision_date": "2026-10-29",
-  "decision_status": "provisional_not_device_verified",
+  "decision_status": "iphone11_hello_cardboard_verified_viewer_not_verified",
   "host": {
     "required_architecture": "arm64",
     "observed_macos": "27.0.1",
@@ -14,7 +14,7 @@
     "release_line": "Unity 6.3 LTS",
     "editor_architecture": "Apple silicon",
     "required_module": "iOS Build Support",
-    "status": "project_and_package_verified_not_device_verified",
+    "status": "project_package_and_iphone11_sample_verified",
     "source": "https://unity.com/releases/editor/whats-new/6000.3.27f1",
     "rollback": {
       "version": "6000.3.26f1",
@@ -27,7 +27,7 @@
     "version": "1.36.0",
     "git_reference": "https://github.com/googlevr/cardboard-xr-plugin.git#v1.36.0",
     "tag_commit": "7fb2c0e438d2ef686f51cd59b53da16cc07b1b68",
-    "status": "package_resolved_compile_verified_iphone11_unverified",
+    "status": "hello_cardboard_1_36_0_iphone11_stereo_verified_viewer_not_verified",
     "source": "https://github.com/googlevr/cardboard-xr-plugin/releases/tag/v1.36.0",
     "rollback": {
       "version": "1.35.0",
@@ -37,7 +37,7 @@
   "apple": {
     "xcode_version": "27.1",
     "xcode_build": "27A9275",
-    "status": "s01_inventory_verified_iphone11_ready_signing_identity_available_device_not_run",
+    "status": "s02_signed_build_install_launch_verified",
     "source": "https://developer.apple.com/news/releases/?id=10152026a",
     "rollback": {
       "version": "27.0",
@@ -59,6 +59,106 @@
       "expires_utc": "2030-02-20T00:00:00Z",
       "sha256": "DCF21878C77F4198E4B4614F03D696D89C66C66008D4244E1B99161AAC91601F"
     },
-    "signing": "one_valid_apple_development_identity_detected"
+    "signing": "personal_team_automatic_signing_build_install_launch_verified"
+  },
+  "s02_runtime_verification": {
+    "date": "2026-10-30",
+    "device": "iPhone 11",
+    "signed_build_install_launch": "pass",
+    "hello_cardboard_two_eye_stereo": "pass",
+    "xr_loader_active": true,
+    "viewer_device_params_loaded": true,
+    "stable_frame_window_average_ms": 33.33,
+    "observed_frame_rate_note": "approximately_30_fps_not_60_fps",
+    "background_resume_no_crash": "pass",
+    "head_pose_recenter_20_direction": "pass_runtime_log_user_accepted_video_waiver",
+    "camera_permission_deny_retry_allow": "pass_runtime_dialog_retry_settings_allow_and_resume",
+    "viewer_optics_readability_comfort": "not_run_s03"
+  },
+  "s03_software_verification": {
+    "date": "2026-10-30",
+    "viewer_profile": "blocked_no_physical_viewer",
+    "gaze_dwell_automated": "pass_23_editmode_and_3_playmode_cases",
+    "gaze_dwell_physical": "not_run_no_viewer",
+    "comfort_tooling_automated": "pass",
+    "viewer_evidence_validator": "pass_7_of_7_cases",
+    "native_thermal_bridge_unsigned_build": "pass",
+    "signed_build_install_launch": "pass_iphone11",
+    "comfort_runtime_smoke": "partial_11_033_seconds_no_viewer",
+    "comfort_20_minute_physical": "not_run_no_viewer",
+    "g00": "blocked_pending_s03_physical_evidence",
+    "g01": "blocked_pending_viewer_optics_readability_comfort"
+  },
+  "s04_software_verification": {
+    "date": "2026-10-30",
+    "layout_fixtures": "pass_3_curved_kinds_mono_and_stereo",
+    "layout_physical_readability": "not_run_no_viewer",
+    "gaze_dwell_automated": "pass_30_target_state_and_playmode",
+    "gaze_dwell_physical": "not_run_no_viewer",
+    "typed_input_automated": "pass",
+    "viewer_trigger_controller": "not_run_no_viewer",
+    "accessibility_automated": "pass",
+    "accessibility_physical": "not_run_no_viewer",
+    "unity_tests": "pass_82_editmode_and_6_playmode",
+    "unsigned_iphoneos_build": "pass",
+    "signed_build_install_launch": "pass_iphone11_process_alive_5_seconds",
+    "hardening": "pass_layout_input_and_fixture_failure_paths",
+    "g02": "not_run_s07"
+  },
+  "s05_software_verification": {
+    "date": "2026-10-30",
+    "panel_registry": "pass_deterministic_versioned_bounded",
+    "panel_factory": "pass_allowlisted_duplicate_guard_and_pool_cap_4_per_kind",
+    "lifecycle_transitions": "pass_15_transition_sequence_and_failure_paths",
+    "snapshot_preview": "pass_3_visible_ids_software_preview",
+    "unity_tests": "pass_87_editmode_and_11_playmode",
+    "unsigned_iphoneos_build": "pass",
+    "signed_build_install_launch": "pass_iphone11_runtime_markers_and_process_alive_5_seconds",
+    "viewer_interaction": "not_run_no_viewer",
+    "upstream_s04_dependency": "partial_physical_viewer_acceptance_pending",
+    "g02": "not_run_s07"
+  },
+  "s06_software_verification": {
+    "date": "2026-10-30",
+    "placement_fixtures": "pass_20_full_rectangle_fov_snap_and_no_overlap",
+    "manipulation": "pass_typed_move_resize_pin_focus_preserved",
+    "localization": "pass_14_keys_vn_en_fallback_and_locale_formatting",
+    "fatigue_tooling": "pass_synthetic_600_seconds_physical_not_run",
+    "unity_tests": "pass_94_editmode_and_14_playmode",
+    "unsigned_iphoneos_build": "pass",
+    "signed_build_install_launch": "pass_iphone11_invariant_runtime_markers_and_process_alive_5_seconds",
+    "viewer_fov_handles_fatigue": "not_run_no_viewer",
+    "upstream_s05_dependency": "partial_physical_viewer_acceptance_pending",
+    "g02": "not_run_s07"
+  },
+  "s07_software_verification": {
+    "date": "2026-10-30",
+    "layout_persistence": "pass_v2_roundtrip_v1_migration_authenticated_envelope",
+    "offline_shell": "pass_local_science_settings_reset_and_backend_agent_denied",
+    "agent_activity_mock": "pass_30_fixtures_including_empty_and_error",
+    "unity_tests": "pass_104_editmode_and_16_playmode",
+    "unsigned_iphoneos_build": "pass",
+    "signed_build_install_launch": "pass_iphone11_restore_markers_and_process_alive_5_seconds",
+    "restart_restore": "pass_first_launch_false_relaunch_true_three_active_panels",
+    "development_fps_samples": "measured_22_0_25_7_and_22_2_no_threshold_claim",
+    "viewer_video_interaction": "not_run_no_viewer",
+    "upstream_s06_dependency": "partial_physical_viewer_acceptance_pending",
+    "g02": "not_run_missing_viewer_video_and_interaction"
+  },
+  "s08_software_verification": {
+    "date": "2026-10-30",
+    "manifest_schema": "pass_v1_hierarchy_targets_lod_units_license_and_budgets",
+    "asset_loader": "pass_sha256_timeout_provenance_fallback_and_disposable_lease",
+    "scene_selection": "pass_20_typed_commands_unknown_stale_and_noop_rejected",
+    "baseline_asset": "generated_cube_444_bytes_8_vertices_12_triangles_0_texture_bytes",
+    "lifecycle_benchmark": "pass_50_cycles_active_0_peak_1_created_equals_disposed",
+    "device_memory": "pass_before_77385411_after_77241531_delta_minus_143880_bound_33554432",
+    "unity_tests": "pass_112_editmode_and_20_playmode",
+    "unsigned_iphoneos_build": "pass",
+    "signed_build_install_launch": "pass_iphone11_runtime_markers_and_process_alive_5_seconds",
+    "external_assets_downloaded": "none",
+    "upstream_s07_dependency": "partial_g02_viewer_video_pending",
+    "g03": "not_run_s09",
+    "g09": "not_run_s35"
   }
 }

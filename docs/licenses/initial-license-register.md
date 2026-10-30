@@ -38,6 +38,7 @@
 | Python backend packages | Installed in repository-local `.venv` only | Exact direct/transitive versions locked; clean install, tests, `pip check`, and license metadata audit captured in `docs/evidence/S01/` |
 | Model weights | Not downloaded | Exact model/license/hash/performance decision is not yet authorized |
 | 3D assets/textbooks | Not downloaded or ingested | Per-asset license and scientific validation are future gates |
+| S08 generated cube | Authored and approved locally | Deterministic 444-byte baseline mesh; SHA-256 and provenance recorded in `S08-generated-cube.md`; no external download or third-party rights |
 
 ## Mandatory per-artifact fields before ingestion
 

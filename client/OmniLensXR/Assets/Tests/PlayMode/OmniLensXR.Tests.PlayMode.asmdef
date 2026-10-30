@@ -1,0 +1,13 @@
+{
+  "name": "OmniLensXR.Tests.PlayMode",
+  "rootNamespace": "OmniLensXR.Tests.PlayMode",
+  "references": [
+    "OmniLensXR.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
+

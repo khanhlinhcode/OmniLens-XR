@@ -1,0 +1,2 @@
+{"event":"startup","time":4.703,"details":"camera_authorized=false,has_device_params=true,xr_loader_active=true"}
+{"event":"frame_window","time":15.618,"details":"samples=300,avg_ms=36.998,p95_ms=33.537,min_ms=16.746,max_ms=716.406"}

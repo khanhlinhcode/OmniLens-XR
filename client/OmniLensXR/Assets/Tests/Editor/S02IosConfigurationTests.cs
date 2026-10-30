@@ -111,5 +111,39 @@ namespace OmniLensXR.Tests.Editor
                 )
             );
         }
+
+        [TestCase(0.0, false, true)]
+        [TestCase(0.25, false, true)]
+        [TestCase(0.999, false, true)]
+        [TestCase(1.0, false, false)]
+        [TestCase(2.0, false, false)]
+        [TestCase(0.25, true, false)]
+        [TestCase(-0.1, false, false)]
+        public void RuntimeProbeSeparatesCheckpointTapFromRecenterHold(
+            double durationSeconds,
+            bool canceled,
+            bool expected
+        )
+        {
+            Assert.That(
+                S02RuntimeProbe.IsCheckpointTap(durationSeconds, canceled),
+                Is.EqualTo(expected)
+            );
+        }
+
+        [TestCase(DeviceOrientation.LandscapeLeft, true)]
+        [TestCase(DeviceOrientation.LandscapeRight, true)]
+        [TestCase(DeviceOrientation.Portrait, false)]
+        [TestCase(DeviceOrientation.PortraitUpsideDown, false)]
+        [TestCase(DeviceOrientation.FaceUp, false)]
+        [TestCase(DeviceOrientation.FaceDown, false)]
+        [TestCase(DeviceOrientation.Unknown, false)]
+        public void CardboardQrScannerOnlyLaunchesInPhysicalLandscape(
+            DeviceOrientation orientation,
+            bool expected
+        )
+        {
+            Assert.That(CardboardScanGate.IsLandscape(orientation), Is.EqualTo(expected));
+        }
     }
 }

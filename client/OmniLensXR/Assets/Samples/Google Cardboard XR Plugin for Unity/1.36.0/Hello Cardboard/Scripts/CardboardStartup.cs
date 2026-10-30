@@ -17,6 +17,7 @@
 //-----------------------------------------------------------------------
 
 using Google.XR.Cardboard;
+using OmniLensXR.S02;
 using UnityEngine;
 
 /// <summary>
@@ -24,6 +25,12 @@ using UnityEngine;
 /// </summary>
 public class CardboardStartup : MonoBehaviour
 {
+    private const string RotatePrompt =
+        "Rotate iPhone to landscape before opening the Cardboard QR scanner.";
+
+    private bool _scanPending;
+    private bool _showRotatePrompt;
+
     /// <summary>
     /// Start is called before the first frame update.
     /// </summary>
@@ -38,7 +45,7 @@ public class CardboardStartup : MonoBehaviour
         // Checks if the device parameters are stored and scans them if not.
         if (!Api.HasDeviceParams())
         {
-            Api.ScanDeviceParams();
+            RequestDeviceParamsScan();
         }
     }
 
@@ -49,8 +56,10 @@ public class CardboardStartup : MonoBehaviour
     {
         if (Api.IsGearButtonPressed)
         {
-            Api.ScanDeviceParams();
+            RequestDeviceParamsScan();
         }
+
+        TryLaunchPendingScan();
 
         if (Api.IsCloseButtonPressed)
         {
@@ -68,5 +77,53 @@ public class CardboardStartup : MonoBehaviour
         }
 
         Api.UpdateScreenParams();
+    }
+
+    private void OnGUI()
+    {
+        if (!_showRotatePrompt)
+        {
+            return;
+        }
+
+        float width = Mathf.Min(Screen.width - 48.0f, 760.0f);
+        GUI.Box(
+            new Rect((Screen.width - width) * 0.5f, 24.0f, width, 72.0f),
+            RotatePrompt
+        );
+    }
+
+    private void RequestDeviceParamsScan()
+    {
+        if (CardboardScanGate.IsLandscape(Input.deviceOrientation))
+        {
+            LaunchDeviceParamsScan();
+            return;
+        }
+
+        _scanPending = true;
+        _showRotatePrompt = true;
+        Debug.LogWarning(
+            "[S02_QR] scan_deferred reason=device_portrait orientation="
+                + Input.deviceOrientation
+        );
+    }
+
+    private void TryLaunchPendingScan()
+    {
+        if (!_scanPending || !CardboardScanGate.IsLandscape(Input.deviceOrientation))
+        {
+            return;
+        }
+
+        LaunchDeviceParamsScan();
+    }
+
+    private void LaunchDeviceParamsScan()
+    {
+        _scanPending = false;
+        _showRotatePrompt = false;
+        Debug.Log("[S02_QR] scan_launched orientation=" + Input.deviceOrientation);
+        Api.ScanDeviceParams();
     }
 }

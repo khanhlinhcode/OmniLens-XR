@@ -17,12 +17,13 @@
 //-----------------------------------------------------------------------
 
 using System.Collections;
+using OmniLensXR.S03;
 using UnityEngine;
 
 /// <summary>
 /// Controls target objects behaviour.
 /// </summary>
-public class ObjectController : MonoBehaviour
+public class ObjectController : MonoBehaviour, IGazeDwellTarget
 {
     /// <summary>
     /// The material to use when this object is inactive (not being gazed at).
@@ -44,6 +45,16 @@ public class ObjectController : MonoBehaviour
 
     private Renderer _myRenderer;
     private Vector3 _startingPosition;
+
+    /// <summary>
+    /// Gets whether this target is currently safe to invoke through the no-trigger fallback.
+    /// </summary>
+    public bool CanSelectByDwell => isActiveAndEnabled;
+
+    /// <summary>
+    /// Gets the runtime-only identity used to prevent duplicate dwell selection.
+    /// </summary>
+    public int DwellTargetId => GetInstanceID();
 
     /// <summary>
     /// Start is called before the first frame update.
@@ -102,6 +113,14 @@ public class ObjectController : MonoBehaviour
     /// is touched.
     /// </summary>
     public void OnPointerClick()
+    {
+        TeleportRandomly();
+    }
+
+    /// <summary>
+    /// Uses the same allowlisted sample action as a physical Cardboard trigger.
+    /// </summary>
+    public void SelectByDwell()
     {
         TeleportRandomly();
     }
