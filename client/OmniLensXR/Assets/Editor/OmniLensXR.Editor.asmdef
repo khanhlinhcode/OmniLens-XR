@@ -1,0 +1,13 @@
+{
+  "name": "OmniLensXR.Editor",
+  "rootNamespace": "OmniLensXR.Editor",
+  "references": [
+    "OmniLensXR.Runtime",
+    "Google.XR.Cardboard",
+    "Unity.XR.Management",
+    "Unity.XR.Management.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

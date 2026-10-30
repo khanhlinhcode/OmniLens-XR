@@ -1,0 +1,39 @@
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+*.p12
+*.mobileprovision
+*.key
+*.pem
+**/Secrets/**
+**/UserSettings/**
+# Python
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+*.pyc
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+# Xcode generated
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+# macOS
+.DS_Store
+# Editors
+.idea/
+.vscode/
+# Local evidence with potentially sensitive values
+/docs/evidence/private/

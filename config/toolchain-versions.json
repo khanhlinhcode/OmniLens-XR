@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "decision_date": "2026-10-29",
+  "decision_status": "provisional_not_device_verified",
+  "host": {
+    "required_architecture": "arm64",
+    "observed_macos": "27.0.1",
+    "observed_architecture": "arm64"
+  },
+  "unity": {
+    "hub_version": "3.22.5",
+    "hub_status": "installed_signature_and_notarization_verified",
+    "version": "6000.3.27f1",
+    "release_line": "Unity 6.3 LTS",
+    "editor_architecture": "Apple silicon",
+    "required_module": "iOS Build Support",
+    "status": "project_and_package_verified_not_device_verified",
+    "source": "https://unity.com/releases/editor/whats-new/6000.3.27f1",
+    "rollback": {
+      "version": "6000.3.26f1",
+      "strategy": "Create a clean compatibility sample; do not open a newer project in an older editor.",
+      "source": "https://unity.com/releases/editor/whats-new/6000.3.26f1"
+    }
+  },
+  "cardboard": {
+    "package": "com.google.xr.cardboard",
+    "version": "1.36.0",
+    "git_reference": "https://github.com/googlevr/cardboard-xr-plugin.git#v1.36.0",
+    "tag_commit": "7fb2c0e438d2ef686f51cd59b53da16cc07b1b68",
+    "status": "package_resolved_compile_verified_iphone11_unverified",
+    "source": "https://github.com/googlevr/cardboard-xr-plugin/releases/tag/v1.36.0",
+    "rollback": {
+      "version": "1.35.0",
+      "git_reference": "https://github.com/googlevr/cardboard-xr-plugin.git#v1.35.0"
+    }
+  },
+  "apple": {
+    "xcode_version": "27.1",
+    "xcode_build": "27A9275",
+    "status": "s01_inventory_verified_iphone11_ready_signing_identity_available_device_not_run",
+    "source": "https://developer.apple.com/news/releases/?id=10152026a",
+    "rollback": {
+      "version": "27.0",
+      "build": "27A266a"
+    },
+    "ios_deployment_target": "15.0",
+    "ios_simulator_runtime_version": "27.1",
+    "ios_simulator_runtime_build": "24A94425",
+    "external_agent_access": "while_xcode_is_open",
+    "physical_debug_minimum_ios_for_xcode_27_1": "17.0",
+    "actual_iphone11_ios": "27.2 (24B5089g)",
+    "physical_device_model": "iPhone 11",
+    "physical_device_interface": "usb",
+    "physical_device_status": "available_paired_trusted_developer_mode_enabled",
+    "apple_account_status": "personal_team_account_added_identity_verified_without_account_details",
+    "wwdr_intermediate": {
+      "version": "G3",
+      "location": "System Keychain",
+      "expires_utc": "2030-02-20T00:00:00Z",
+      "sha256": "DCF21878C77F4198E4B4614F03D696D89C66C66008D4244E1B99161AAC91601F"
+    },
+    "signing": "one_valid_apple_development_identity_detected"
+  }
+}

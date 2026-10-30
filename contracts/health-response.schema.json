@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Non-sensitive health information for local readiness checks.",
+  "properties": {
+    "environment": {
+      "enum": [
+        "development",
+        "test",
+        "production"
+      ],
+      "title": "Environment",
+      "type": "string"
+    },
+    "paid_services_enabled": {
+      "const": false,
+      "default": false,
+      "title": "Paid Services Enabled",
+      "type": "boolean"
+    },
+    "raw_media_storage_enabled": {
+      "const": false,
+      "default": false,
+      "title": "Raw Media Storage Enabled",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "v1",
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "scope": {
+      "const": "s01-backend-foundation",
+      "default": "s01-backend-foundation",
+      "title": "Scope",
+      "type": "string"
+    },
+    "service": {
+      "const": "omnilens-api",
+      "default": "omnilens-api",
+      "title": "Service",
+      "type": "string"
+    },
+    "status": {
+      "const": "ok",
+      "default": "ok",
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "environment"
+  ],
+  "title": "HealthResponse",
+  "type": "object"
+}

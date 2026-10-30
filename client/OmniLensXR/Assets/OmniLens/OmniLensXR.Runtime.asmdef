@@ -1,0 +1,9 @@
+{
+  "name": "OmniLensXR.Runtime",
+  "rootNamespace": "OmniLensXR",
+  "references": [
+    "Google.XR.Cardboard",
+    "Unity.InputSystem",
+    "Unity.XR.Management"
+  ]
+}

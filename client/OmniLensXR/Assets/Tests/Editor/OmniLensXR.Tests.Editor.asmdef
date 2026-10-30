@@ -1,0 +1,17 @@
+{
+  "name": "OmniLensXR.Tests.Editor",
+  "rootNamespace": "OmniLensXR.Tests.Editor",
+  "references": [
+    "OmniLensXR.Runtime",
+    "OmniLensXR.Editor",
+    "Google.XR.Cardboard",
+    "Unity.XR.Management",
+    "Unity.XR.Management.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
